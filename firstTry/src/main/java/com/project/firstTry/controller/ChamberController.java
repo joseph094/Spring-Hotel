@@ -10,6 +10,8 @@ import com.project.firstTry.repository.ChamberRepository;
 import com.project.firstTry.service.UserService;
 import com.project.firstTry.service.impl.ChamberService;
 import com.project.firstTry.service.impl.ReservationService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +22,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin
-
+@Tag(name = "Chamber APIs", description = "chambers Apis")
 @RequestMapping("/api/v1/")
 public class ChamberController {
 
@@ -28,7 +30,7 @@ public class ChamberController {
 
     private final ReservationService reservationService;
 
-    private final UserService userService;
+    private final UserService usersService;
 
 
     private final ChamberRepository chamberRepository;
@@ -38,13 +40,16 @@ public class ChamberController {
     public ChamberController(ChamberService chamberService, ReservationService reservationService, UserService userService, ChamberRepository chamberRepository) {
         this.chamberService = chamberService;
         this.reservationService = reservationService;
-        this.userService = userService;
+        this.usersService = userService;
         this.chamberRepository=chamberRepository;
 
     }
 
     @CrossOrigin
     @GetMapping("chambers/rooms")
+    @Operation(
+            summary = "Fetch all Chambers",
+            description = "fetches all Chambers entities")
     public List<Chamber> getAllChambers() {
         return chamberService.getAllChambers();
     }
