@@ -1,21 +1,22 @@
 package com.project.firstTry.service.impl;
 
-import com.project.firstTry.dto.UpdateChamberRequest;
-import com.project.firstTry.model.Chamber;
-import com.project.firstTry.model.Reservation;
-import com.project.firstTry.model.RoomCategory;
-import com.project.firstTry.repository.ChamberRepository;
-import com.project.firstTry.repository.ReservationRepository;
-import com.project.firstTry.repository.RoomCategoryRepository;
-import jakarta.transaction.Transactional;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import com.project.firstTry.dto.UpdateChamberRequest;
+import com.project.firstTry.model.Chamber;
+import com.project.firstTry.model.RoomCategory;
+import com.project.firstTry.repository.ChamberRepository;
+import com.project.firstTry.repository.ReservationRepository;
+import com.project.firstTry.repository.RoomCategoryRepository;
+
+import jakarta.transaction.Transactional;
 
 @Transactional
 @Service
@@ -48,7 +49,6 @@ public class ChamberService {
 
         // Read
         public Chamber getChamberById(long chamberId) {
-
             return chamberRepository.findById(chamberId).orElse(null);
         }
     @Transactional
@@ -84,7 +84,7 @@ public class ChamberService {
 
 
         // Example: Assign Chamber to RoomCategory
-        public Chamber assignChamberToRoomCategory(long chamberId, long categoryId) {
+        public Chamber assignChamberToRoomCategory(long chamberId, String categoryId) {
             Chamber chamber = chamberRepository.findById(chamberId).orElse(null);
                 RoomCategory roomCategory = roomCategoryRepository.findById(categoryId).orElse(null);
 
