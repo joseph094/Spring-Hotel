@@ -1,21 +1,30 @@
+// Import necessary packages
 package com.project.firstTry.dto;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Data;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import lombok.Data;
+
+// Lombok annotation to automatically generate getters, setters, toString, and other boilerplate code
 @Data
 public class ReservationRequest {
+
+    // Private field to store the chamber ID
     private Long chamberId;
+
+    // Private field to store the user ID
     private Long userId;
-    @JsonFormat(pattern = "dd/MM/yyyy")
 
+    // Specify that the 'beginDate' property should be formatted as per the provided pattern when serialized to JSON
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date beginDate;
-    @JsonFormat(pattern = "dd/MM/yyyy")
 
+    // Specify that the 'endDate' property should be formatted as per the provided pattern when serialized to JSON
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date endDate;
 
+    // Private field to store the full price of the reservation
     private long full_price;
 }
-

@@ -20,7 +20,7 @@ import com.project.firstTry.service.UserService;
 import lombok.RequiredArgsConstructor;
 
 /**
- * Controller class for handling user-related operations by the admin.
+ * Controller class for handling users list operations by the admin.
  */
 @CrossOrigin
 @RestController

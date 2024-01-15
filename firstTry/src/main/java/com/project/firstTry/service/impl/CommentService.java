@@ -1,3 +1,4 @@
+// Import necessary packages
 package com.project.firstTry.service.impl;
 
 import java.util.List;
@@ -13,10 +14,12 @@ import com.project.firstTry.repository.UsersRepository;
 
 import jakarta.transaction.Transactional;
 
+// Transactional and Service annotations indicating that this class is a Spring service with transaction management
 @Transactional
 @Service
 public class CommentService {
 
+    // Autowired constructor-based dependency injection
     private final UsersRepository usersRepository;
     private final CommentRepository commentRepository;
 
@@ -26,7 +29,7 @@ public class CommentService {
         this.usersRepository = usersRepository;
     }
 
-    // Create
+    // Method to create a new comment
     public Comment createComment(UpdateCommentRequest commentRequest, Users user) {
         Comment comment = new Comment();
         comment.setRate(commentRequest.getRate());
@@ -35,11 +38,12 @@ public class CommentService {
         return commentRepository.save(comment);
     }
 
-    // Read
+    // Method to retrieve a comment by its ID
     public Comment getCommentById(long commentId) {
         return commentRepository.findById(commentId).orElse(null);
     }
 
+    // Method to retrieve all comments
     @Transactional
     public List<Comment> getAllComments() {
         return commentRepository.findAll();
