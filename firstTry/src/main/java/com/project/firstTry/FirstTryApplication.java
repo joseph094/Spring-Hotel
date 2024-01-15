@@ -1,44 +1,47 @@
 package com.project.firstTry;
 
-import com.project.firstTry.model.Employee;
-import com.project.firstTry.model.Roles;
-import com.project.firstTry.model.Users;
-import com.project.firstTry.repository.EmployeeRepository;
-import com.project.firstTry.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.project.firstTry.model.Roles;
+import com.project.firstTry.model.Users;
+import com.project.firstTry.repository.UsersRepository;
 
 @SpringBootApplication
-public class FirstTryApplication implements CommandLineRunner{
+public class FirstTryApplication implements CommandLineRunner {
 
-	@Autowired
-	private UsersRepository usersRepository;
+    // Autowired UsersRepository for interacting with user data
+    @Autowired
+    private UsersRepository usersRepository;
 
-	public static void main(String[] args) {
-		SpringApplication.run(FirstTryApplication.class, args);
+    // Application entry point
+    public static void main(String[] args) {
+        SpringApplication.run(FirstTryApplication.class, args);
+    }
 
-	}
-
-	@Override
-	public void run(String... args) throws Exception {
-		Users adminAccount= usersRepository.findByRole(Roles.ADMIN);
-		if(null==adminAccount){
-			Users user =new Users();
-			user.setEmail("admin@gmail.com");
-			user.setFirst_name("admin");
-			user.setLast_name("admin");
-			user.setPhone("25252525");
-			user.setRole(Roles.ADMIN);
-			user.setPassword(new BCryptPasswordEncoder().encode("admin"));
-			usersRepository.save(user);
-		}
-	}
-
-
-
+    // CommandLineRunner method to be executed on application startup
+    @Override
+    public void run(String... args) throws Exception {
+        // Check if an admin account already exists
+        Users adminAccount = usersRepository.findByRole(Roles.ADMIN);
+        
+        // If admin account doesn't exist, create a default one
+        if (null == adminAccount) {
+            Users user = new Users();
+            user.setEmail("admin@gmail.com");
+            user.setFirst_name("admin");
+            user.setLast_name("admin");
+            user.setPhone("25252525");
+            user.setRole(Roles.ADMIN);
+            
+            // Encode the password using BCryptPasswordEncoder
+            user.setPassword(new BCryptPasswordEncoder().encode("admin"));
+            
+            // Save the admin user to the repository
+            usersRepository.save(user);
+        }
+    }
 }
